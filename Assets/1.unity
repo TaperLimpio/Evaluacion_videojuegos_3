@@ -121,7 +121,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: dfcd35107a6804f47b9c24b573b635d2, type: 2}
 --- !u!1 &55299206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d9be55bfce05fcb4caab719649872779, type: 3}
@@ -1344,7 +1344,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 70
   player: {fileID: 55299211}
-  speed: 3.5
+  stopDistance: 2
+  maxChaseDistance: 15
+--- !u!195 &697785198
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697785192}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &768854466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1644,7 +1667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d9be55bfce05fcb4caab719649872779, type: 3}
       propertyPath: m_Name
-      value: Paladin J Nordstrom
+      value: PaladinJNordstrom
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d9be55bfce05fcb4caab719649872779, type: 3}
       propertyPath: m_TagString
@@ -1739,6 +1762,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f613dabdb16dbf948a02c4ff5a0742da, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1655406719}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f613dabdb16dbf948a02c4ff5a0742da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1655406721}
   m_SourcePrefab: {fileID: 100100000, guid: f613dabdb16dbf948a02c4ff5a0742da, type: 3}
 --- !u!1001 &1036145154
 PrefabInstance:
@@ -2202,6 +2228,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef05c5077ad23154f8631b5efc6b7f71, type: 3}
       insertIndex: -1
       addedObject: {fileID: 697785196}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ef05c5077ad23154f8631b5efc6b7f71, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 697785198}
   m_SourcePrefab: {fileID: 100100000, guid: ef05c5077ad23154f8631b5efc6b7f71, type: 3}
 --- !u!1001 &1511160207
 PrefabInstance:
@@ -2577,7 +2606,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRadius: 70
   player: {fileID: 55299211}
-  speed: 3.5
+  stopDistance: 2
+  maxChaseDistance: 15
+--- !u!195 &1655406721
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655406715}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1727845281
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,26 +1,63 @@
 using UnityEngine;
-using UnityEngine.AI;  // Necesario si quieres usar NavMeshAgent para la navegación.
+using UnityEngine.AI;  // Necesario para trabajar con NavMesh
 
 public class EnemyAI : MonoBehaviour
 {
     public float detectionRadius = 10f;   // Radio de detección.
     public Transform player;              // Referencia al jugador.
-    public float speed = 3.5f;            // Velocidad de movimiento del enemigo.
+    public float stopDistance = 2f;       // Distancia mínima para detenerse cerca del jugador.
+    public float maxChaseDistance = 15f;  // Distancia máxima para perseguir (fuera de esta distancia, el enemigo deja de perseguir).
 
     private bool isChasing = false;       // Si el enemigo está persiguiendo.
-    private NavMeshAgent agent;           // Agente de navegación del enemigo.
+    private NavMeshAgent agent;           // Componente NavMeshAgent
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>(); // Si usas NavMeshAgent para el movimiento.
+        agent = GetComponent<NavMeshAgent>(); // Obtener el componente NavMeshAgent del enemigo
     }
 
     void Update()
     {
-        // Si el enemigo está persiguiendo, mueve hacia el jugador.
+        // Comprobar la distancia entre el enemigo y el jugador.
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // Si el jugador está dentro del rango de detección y el enemigo no está persiguiendo, comienza la persecución.
+        if (distanceToPlayer <= detectionRadius && !isChasing)
+        {
+            isChasing = true;
+            Debug.Log("Jugador detectado. Comienza a perseguir.");
+        }
+
+        // Si el jugador está fuera del rango de detección y el enemigo lo estaba persiguiendo, deja de perseguir.
+        if (distanceToPlayer > detectionRadius && isChasing)
+        {
+            isChasing = false;
+            agent.ResetPath();  // Detenemos al enemigo si sale del rango de persecución.
+            Debug.Log("Jugador fuera de alcance. Deteniendo persecución.");
+        }
+
+        // Si el enemigo está persiguiendo al jugador.
         if (isChasing)
         {
-            agent.SetDestination(player.position); // Mueve hacia el jugador.
+            // Si el jugador está dentro del radio de persecución, mover al enemigo hacia el jugador.
+            if (distanceToPlayer > stopDistance && distanceToPlayer <= maxChaseDistance)
+            {
+                agent.SetDestination(player.position); // El NavMeshAgent calcula el camino automáticamente.
+            }
+            else if (distanceToPlayer <= stopDistance)
+            {
+                // Detenerse al alcanzar la distancia de parada.
+                agent.ResetPath();
+                Debug.Log("Enemigo alcanzó al jugador.");
+            }
+
+            // Si el enemigo se aleja demasiado del jugador (fuera del radio máximo de persecución), se detiene.
+            if (distanceToPlayer > maxChaseDistance)
+            {
+                isChasing = false;
+                agent.ResetPath();
+                Debug.Log("Jugador demasiado lejos. Persecución detenida.");
+            }
         }
     }
 
@@ -40,9 +77,8 @@ public class EnemyAI : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isChasing = false; // Detiene la persecución.
+            agent.ResetPath(); // Detiene el movimiento del agente.
             Debug.Log("Jugador fuera de alcance.");
         }
     }
-
-    // Alternativamente, puedes usar un enfoque con raycasting si prefieres no usar triggers.
 }
