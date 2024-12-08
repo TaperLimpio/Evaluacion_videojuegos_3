@@ -10,10 +10,12 @@ public class EnemyAI : MonoBehaviour
 
     private bool isChasing = false;       // Si el enemigo está persiguiendo.
     private NavMeshAgent agent;           // Componente NavMeshAgent
+    private Animator animator;            // Componente Animator del enemigo
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>(); // Obtener el componente NavMeshAgent del enemigo
+        animator = GetComponent<Animator>();  // Obtener el componente Animator del enemigo
     }
 
     void Update()
@@ -26,6 +28,7 @@ public class EnemyAI : MonoBehaviour
         {
             isChasing = true;
             Debug.Log("Jugador detectado. Comienza a perseguir.");
+            animator.SetBool("isRunning", true);  // Activar la animación de correr
         }
 
         // Si el jugador está fuera del rango de detección y el enemigo lo estaba persiguiendo, deja de perseguir.
@@ -33,6 +36,7 @@ public class EnemyAI : MonoBehaviour
         {
             isChasing = false;
             agent.ResetPath();  // Detenemos al enemigo si sale del rango de persecución.
+            animator.SetBool("isRunning", false);  // Detener la animación de correr
             Debug.Log("Jugador fuera de alcance. Deteniendo persecución.");
         }
 
@@ -48,6 +52,7 @@ public class EnemyAI : MonoBehaviour
             {
                 // Detenerse al alcanzar la distancia de parada.
                 agent.ResetPath();
+                animator.SetBool("isRunning", false);  // Detener la animación de correr
                 Debug.Log("Enemigo alcanzó al jugador.");
             }
 
@@ -56,6 +61,7 @@ public class EnemyAI : MonoBehaviour
             {
                 isChasing = false;
                 agent.ResetPath();
+                animator.SetBool("isRunning", false);  // Detener la animación de correr
                 Debug.Log("Jugador demasiado lejos. Persecución detenida.");
             }
         }
@@ -67,6 +73,7 @@ public class EnemyAI : MonoBehaviour
         if (other.CompareTag("Player"))  // Asegúrate de que el jugador tenga el tag "Player".
         {
             isChasing = true; // Empieza a perseguir al jugador.
+            animator.SetBool("isRunning", true);  // Activar la animación de correr
             Debug.Log("Jugador detectado. Comienza a perseguir.");
         }
     }
@@ -78,6 +85,7 @@ public class EnemyAI : MonoBehaviour
         {
             isChasing = false; // Detiene la persecución.
             agent.ResetPath(); // Detiene el movimiento del agente.
+            animator.SetBool("isRunning", false);  // Detener la animación de correr
             Debug.Log("Jugador fuera de alcance.");
         }
     }
