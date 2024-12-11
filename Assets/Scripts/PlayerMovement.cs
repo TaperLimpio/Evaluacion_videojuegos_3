@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Animator animator;
+    private Vida vida;
     [SerializeField] float velocidad;
     void Start()
     {
@@ -27,4 +29,5 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("saltar");
         }
     }
+
 }

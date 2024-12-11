@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;           // Componente NavMeshAgent
     private Animator animator;            // Componente Animator del enemigo
 
+    [SerializeField] private int damage = 5;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>(); // Obtener el componente NavMeshAgent del enemigo
@@ -72,6 +74,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))  // Asegúrate de que el jugador tenga el tag "Player".
         {
+            other.gameObject.GetComponent<Vida>().daño(damage);
+            other.gameObject.GetComponent<Movimiento>().tomarDaño();
             isChasing = true; // Empieza a perseguir al jugador.
             animator.SetBool("isRunning", true);  // Activar la animación de correr
             Debug.Log("Jugador detectado. Comienza a perseguir.");

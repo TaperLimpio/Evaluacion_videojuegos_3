@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movimiento : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class Movimiento : MonoBehaviour
     private int saltosRestantes;
     private bool enElSuelo;
 
+    private Vida vida;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        vida = GetComponent<Vida>();
         saltosRestantes = maxSaltos;
     }
 
@@ -42,6 +46,18 @@ public class Movimiento : MonoBehaviour
                 saltosRestantes--; // Disminuye el número de saltos restantes
             }
         }
+    }
+
+    public void tomarDaño()
+    {
+        if (vida.getVida() == 0)
+        {
+            morir();
+        }
+    }
+
+    public void morir(){
+        SceneManager.LoadScene("1");
     }
 
     private void OnCollisionEnter(Collision collision)

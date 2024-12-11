@@ -4598,6 +4598,7 @@ MonoBehaviour:
   player: {fileID: 55299211}
   stopDistance: 2
   maxChaseDistance: 70
+  damage: 5
 --- !u!195 &697785198
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9805,6 +9806,7 @@ MonoBehaviour:
   player: {fileID: 55299211}
   stopDistance: 2
   maxChaseDistance: 70
+  damage: 5
 --- !u!195 &1655406721
 NavMeshAgent:
   m_ObjectHideFlags: 0
